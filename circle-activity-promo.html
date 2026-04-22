@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CIRCLE – Propose Activity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #B0B4C4;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* ─── 1200 × 630 post canvas ─── */
+.post {
+  width: 1200px;
+  height: 630px;
+  background: #EDEDF0;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* Faint brand-circle decoration behind text */
+.post::before {
+  content: '';
+  position: absolute;
+  left: -180px; top: 50%;
+  transform: translateY(-50%);
+  width: 620px; height: 620px;
+  border-radius: 50%;
+  border: 1px solid rgba(59,85,222,0.07);
+}
+.post::after {
+  content: '';
+  position: absolute;
+  left: -80px; top: 50%;
+  transform: translateY(-50%);
+  width: 420px; height: 420px;
+  border-radius: 50%;
+  border: 1px solid rgba(59,85,222,0.05);
+}
+
+/* ─── Left: text ─── */
+.text-side {
+  position: absolute;
+  left: 0; top: 0;
+  width: 680px; height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 60px 0 72px;
+}
+
+.brand {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  color: #3B55DE;
+  letter-spacing: 2px;
+  margin-bottom: 26px;
+}
+
+.headline {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 54px;
+  color: #0A0E2A;
+  line-height: 1.06;
+  letter-spacing: -1.5px;
+}
+
+.headline .hl {
+  color: #3B55DE;
+}
+
+/* ─── Right: phone ─── */
+.phone-side {
+  position: absolute;
+  right: 0; top: 0;
+  width: 520px; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-wrap {
+  transform: rotate(-6deg);
+  filter: drop-shadow(0 28px 55px rgba(0,0,0,0.36))
+          drop-shadow(0 6px 16px rgba(0,0,0,0.18));
+  position: relative;
+}
+
+.phone {
+  width: 268px;
+  height: 578px;
+  background: #141414;
+  border-radius: 50px;
+  position: relative;
+  box-shadow: inset 0 0 0 0.5px rgba(255,255,255,0.09);
+}
+
+.screen {
+  position: absolute;
+  inset: 3px;
+  border-radius: 47px;
+  overflow: hidden;
+  background: white;
+}
+
+.island {
+  position: absolute;
+  top: 12px; left: 50%;
+  transform: translateX(-50%);
+  width: 110px; height: 30px;
+  background: #141414;
+  border-radius: 20px;
+  z-index: 20;
+}
+
+.hbar {
+  position: absolute;
+  bottom: 8px; left: 50%;
+  transform: translateX(-50%);
+  width: 112px; height: 4px;
+  border-radius: 3px;
+  background: rgba(0,0,0,0.2);
+  z-index: 20;
+}
+
+/* ════════════════════════════
+   PHONE SCREEN — Propose Activity
+   ════════════════════════════ */
+.si {
+  height: 100%;
+  background: #F4F6FF;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Top bar */
+.s-bar {
+  background: white;
+  padding: 52px 16px 14px;
+  position: relative;
+  border-bottom: 1px solid #F0F2FF;
+}
+
+.s-back {
+  position: absolute;
+  top: 56px; left: 16px;
+  font-size: 20px;
+  color: #3B55DE;
+  line-height: 1;
+  font-weight: 300;
+}
+
+.s-title {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 800;
+  color: #0A0E2A;
+}
+
+.s-share {
+  position: absolute;
+  top: 56px; right: 16px;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #F0F2FF;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+}
+
+/* Body */
+.s-body { padding: 14px 14px 0; overflow: hidden; }
+
+.lbl {
+  font-size: 9px;
+  font-weight: 800;
+  color: #9098B4;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 7px;
+}
+
+/* Sport pills */
+.sports {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 13px;
+}
+
+.sp {
+  flex: 1;
+  background: white;
+  border-radius: 14px;
+  padding: 9px 5px 8px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(59,85,222,0.08);
+}
+
+.sp.on {
+  background: #3B55DE;
+}
+
+.sp-em { font-size: 17px; display: block; margin-bottom: 3px; }
+
+.sp-txt {
+  font-size: 9px;
+  font-weight: 700;
+  color: #0A0E2A;
+}
+.sp.on .sp-txt { color: white; }
+
+/* Field rows */
+.frow {
+  background: white;
+  border-radius: 13px;
+  padding: 10px 12px;
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  box-shadow: 0 2px 8px rgba(59,85,222,0.06);
+}
+
+.frow-ico { font-size: 14px; flex-shrink: 0; }
+.frow-v { font-size: 11px; font-weight: 700; color: #0A0E2A; }
+.frow-h { font-size: 9px; color: #9098B4; margin-top: 1px; }
+.frow-ch {
+  margin-left: auto;
+  font-size: 9px;
+  font-weight: 700;
+  color: #3B55DE;
+  flex-shrink: 0;
+}
+
+/* Send to — blue card */
+.send-card {
+  background: #3B55DE;
+  border-radius: 16px;
+  padding: 12px 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.avs { display: flex; }
+.av {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 2.5px solid rgba(255,255,255,0.7);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 800; color: white;
+  margin-left: -7px; flex-shrink: 0;
+}
+.av:first-child { margin-left: 0; }
+.av-more {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 2.5px solid rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.22);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 7px; font-weight: 800; color: white; margin-left: -7px;
+}
+
+.send-info { flex: 1; }
+.send-name { font-size: 13px; font-weight: 800; color: white; }
+.send-sub  { font-size: 9px; color: rgba(255,255,255,0.65); margin-top: 1px; }
+
+.send-arr {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 12px; flex-shrink: 0;
+}
+
+/* CTA */
+.cta {
+  background: #0A1540;
+  color: white;
+  border-radius: 50px;
+  padding: 13px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cta-arr {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+}
+</style>
+</head>
+<body>
+<div class="post">
+
+  <!-- ── Left: headline text ── -->
+  <div class="text-side">
+    <div class="brand">CIRCLE</div>
+    <div class="headline">
+      Proposing<br>
+      activities to<br>
+      your circle has<br>
+      never been<br>
+      <span class="hl">this easy</span>
+    </div>
+  </div>
+
+  <!-- ── Right: phone ── -->
+  <div class="phone-side">
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="island"></div>
+        <div class="hbar"></div>
+        <div class="screen">
+          <div class="si">
+
+            <!-- Header -->
+            <div class="s-bar">
+              <div class="s-back">‹</div>
+              <div class="s-title">Propose Activity</div>
+              <div class="s-share">↗</div>
+            </div>
+
+            <div class="s-body">
+
+              <!-- Sport selector -->
+              <div class="lbl" style="margin-top:2px;">Choose Sport</div>
+              <div class="sports">
+                <div class="sp on">
+                  <span class="sp-em">🏃</span>
+                  <span class="sp-txt">Running</span>
+                </div>
+                <div class="sp">
+                  <span class="sp-em">🚴</span>
+                  <span class="sp-txt">Cycling</span>
+                </div>
+                <div class="sp">
+                  <span class="sp-em">🎾</span>
+                  <span class="sp-txt">Tennis</span>
+                </div>
+              </div>
+
+              <!-- When -->
+              <div class="lbl">When</div>
+              <div class="frow" style="margin-bottom:7px;">
+                <span class="frow-ico">📅</span>
+                <div>
+                  <div class="frow-v">Sun, 27 Apr · 7:30 AM</div>
+                  <div class="frow-h">Tap to change date or time</div>
+                </div>
+                <span class="frow-ch">Edit</span>
+              </div>
+
+              <!-- Where -->
+              <div class="lbl">Where</div>
+              <div class="frow">
+                <span class="frow-ico">📍</span>
+                <div>
+                  <div class="frow-v">Victoria Park</div>
+                  <div class="frow-h">London · 2.1 km away</div>
+                </div>
+                <span class="frow-ch">Edit</span>
+              </div>
+
+              <!-- Send to circle -->
+              <div class="lbl" style="margin-top:10px;">Send to</div>
+              <div class="send-card">
+                <div class="avs">
+                  <div class="av" style="background:#5B75F0;">A</div>
+                  <div class="av" style="background:#FF6B35;">S</div>
+                  <div class="av" style="background:#1BC8B4;">T</div>
+                  <div class="av-more">+15</div>
+                </div>
+                <div class="send-info">
+                  <div class="send-name">Weekend Runners</div>
+                  <div class="send-sub">18 members will be notified</div>
+                </div>
+                <div class="send-arr">›</div>
+              </div>
+
+              <!-- CTA -->
+              <div class="cta">
+                <span>Propose to Circle</span>
+                <div class="cta-arr">↗</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
